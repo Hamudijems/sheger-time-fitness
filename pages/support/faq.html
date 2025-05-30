@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | PowerFit Gym</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Page specific styles */
+        .page-hero {
+            height: 40vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../images/faq-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.5), transparent 70%);
+            animation: heroGlow 8s infinite alternate;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--light-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--light-color);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            z-index: 2;
+            position: relative;
+        }
+
+        .page-content {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+
+        .content-block {
+            margin-bottom: 60px;
+        }
+
+        .content-block h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .content-block h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        /* FAQ styles */
+        .faq-container {
+            margin: 30px 0;
+        }
+        
+        .faq-section {
+            margin-bottom: 50px;
+        }
+        
+        .faq-section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .faq-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+        
+        .faq-question {
+            padding: 15px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            cursor: pointer;
+            position: relative;
+            padding-right: 30px;
+        }
+        
+        .faq-question::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 0;
+            top: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question::after {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding-right: 30px;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding-bottom: 20px;
+        }
+
+        .faq-answer p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .faq-answer ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+
+        .faq-answer li {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .faq-answer li::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        /* Additional contact section */
+        .more-questions {
+            background-color: #f8f8f8;
+            padding: 40px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .more-questions h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .more-questions p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Category tabs */
+        .faq-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .faq-tab {
+            padding: 15px 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            color: #666;
+        }
+
+        .faq-tab.active {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .faq-tab:hover {
+            color: var(--secondary-color);
+        }
+
+        .faq-section {
+            display: none;
+        }
+
+        .faq-section.active {
+            display: block;
+        }
+
+        /* Animation classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .faq-tabs {
+                flex-direction: column;
+                border-bottom: none;
+            }
+
+            .faq-tab {
+                border-bottom: 1px solid #e0e0e0;
+                text-align: center;
+            }
+
+            .faq-tab.active {
+                background-color: #f5f5f5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="glass-nav">
+        <div class="nav-container">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>PowerFit</h1>
+                    <span class="tagline">FITNESS REDEFINED</span>
+                </div>
+            </div>
+            
+            <div class="nav-toggle" id="navToggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul class="nav-links" id="navLinks">
+                    <li class="nav-item"><a href="../../index.html#home" class="nav-link"><span>Home</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#about" class="nav-link"><span>About</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#services" class="nav-link"><span>Services</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#trainers" class="nav-link"><span>Trainers</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#pricing" class="nav-link"><span>Pricing</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#contact" class="nav-link"><span>Contact</span></a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="../../index.html#pricing" class="btn btn-nav">Join Now</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">Frequently Asked Questions</h1>
+            <p class="page-subtitle">Find answers to common questions about PowerFit Gym memberships, facilities, and services</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="content-block fade-up">
+                <h2>Common Questions</h2>
+                
+                <div class="faq-tabs">
+                    <div class="faq-tab active" data-tab="membership">Membership</div>
+                    <div class="faq-tab" data-tab="facilities">Facilities & Hours</div>
+                    <div class="faq-tab" data-tab="services">Classes & Services</div>
+                    <div class="faq-tab" data-tab="getting-started">Getting Started</div>
+                    <div class="faq-tab" data-tab="policies">Gym Policies</div>
+                </div>
+                
+                <div class="faq-container">
+                    <!-- Membership FAQs -->
+                    <div class="faq-section active" id="membership-faq">
+                        <h3 class="faq-section-title">Membership Questions</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">What membership plans do you offer?</div>
+                            <div class="faq-answer">
+                                <p>We offer several membership options to suit different needs:</p>
+                                <ul>
+                                    <li><strong>Standard Membership:</strong> Full access to gym facilities during regular hours</li>
+                                    <li><strong>Premium Membership:</strong> Full access to gym facilities, group classes, and sauna/steam room</li>
+                                    <li><strong>Ultimate Membership:</strong> All Premium benefits plus 2 personal training sessions monthly</li>
+                                    <li><strong>Student/Senior:</strong> Discounted rates with valid ID</li>
+                                    <li><strong>Day Pass:</strong> Single-day access for visitors</li>
+                                </ul>
+                                <p>Visit our <a href="../../index.html#pricing" class="text-link">pricing page</a> for current rates and special offers.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Is there a joining fee?</div>
+                            <div class="faq-answer">
+                                <p>Yes, there is a one-time joining fee of $49 for new members. However, we frequently run promotions that waive this fee. Check our current offers or speak with a membership consultant to learn about any active promotions.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Do you offer family memberships?</div>
+                            <div class="faq-answer">
+                                <p>Yes, we offer family membership packages for households with 2 or more members. Each additional family member receives a 15% discount off their membership rate. All family members must reside at the same address, and proof may be required.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Can I freeze my membership temporarily?</div>
+                            <div class="faq-answer">
+                                <p>Yes, members can freeze their membership for 1-3 months per calendar year for reasons such as medical issues, extended travel, or temporary relocation. A small monthly maintenance fee of $10 applies during the freeze period. Membership freezes must be requested at least 5 days before your billing date and require completion of a membership freeze form.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">How do I cancel my membership?</div>
+                            <div class="faq-answer">
+                                <p>To cancel your membership, we require a 30-day written notice. You can submit your cancellation request in person at the front desk or via email to memberships@powerfit.com. Please note that we do not process cancellations over the phone. Any outstanding balance must be paid before cancellation can be finalized.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Facilities FAQs -->
+                    <div class="faq-section" id="facilities-faq">
+                        <h3 class="faq-section-title">Facilities & Hours</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">What are your hours of operation?</div>
+                            <div class="faq-answer">
+                                <p>Our gym hours are:</p>
+                                <ul>
+                                    <li><strong>Monday - Thursday:</strong> 5:00 AM - 11:00 PM</li>
+                                    <li><strong>Friday:</strong> 5:00 AM - 10:00 PM</li>
+                                    <li><strong>Saturday:</strong> 7:00 AM - 8:00 PM</li>
+                                    <li><strong>Sunday:</strong> 8:00 AM - 8:00 PM</li>
+                                </ul>
+                                <p>Please note that hours may vary during holidays, and we recommend checking our website or social media for any updates to our schedule.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Do you have parking available?</div>
+                            <div class="faq-answer">
+                                <p>Yes, we offer free parking for members in our dedicated lot. During peak hours (4-7 PM weekdays), the lot can fill up quickly, so we also have an arrangement with the adjacent office building for overflow parking after 6 PM on weekdays and all day on weekends.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Do you have showers and locker rooms?</div>
+                            <div class="faq-answer">
+                                <p>Yes, we provide fully-equipped locker rooms with showers, toilets, sinks, and changing areas. Amenities include complimentary shampoo, body wash, blow dryers, and towel service (Premium and Ultimate memberships). Day lockers are free to use during your workout, and rental lockers are available for monthly fees.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">What equipment do you have?</div>
+                            <div class="faq-answer">
+                                <p>Our gym features state-of-the-art equipment including:</p>
+                                <ul>
+                                    <li>Comprehensive free weight area with multiple squat racks, bench press stations, and dumbbells up to 150lbs</li>
+                                    <li>Full range of pin-loaded and plate-loaded strength machines</li>
+                                    <li>Cardio section with treadmills, ellipticals, stair climbers, rowing machines, and stationary bikes</li>
+                                    <li>Dedicated functional training area with TRX, kettlebells, medicine balls, and more</li>
+                                    <li>Specialized zones for stretching and mobility work</li>
+                                </ul>
+                                <p>Our equipment is regularly maintained and updated to ensure the best workout experience.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Is your facility accessible to people with disabilities?</div>
+                            <div class="faq-answer">
+                                <p>Yes, our facility is ADA compliant with accessible entrances, elevators, locker rooms, and equipment. We have specialized equipment designed for wheelchair users and staff trained to assist members with various disabilities. If you have specific accessibility needs, please contact us, and we'll be happy to provide more detailed information.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Services FAQs -->
+                    <div class="faq-section" id="services-faq">
+                        <h3 class="faq-section-title">Classes & Services</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Are group fitness classes included with membership?</div>
+                            <div class="faq-answer">
+                                <p>Group fitness classes are included with Premium and Ultimate memberships. Standard members can purchase class packs or pay a drop-in fee per class. We offer over 50 classes weekly, including yoga, HIIT, cycling, strength training, and more. Check our class schedule on our app or website for the most current offerings.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">How do I sign up for classes?</div>
+                            <div class="faq-answer">
+                                <p>You can reserve your spot in classes through our PowerFit mobile app, website portal, or at the front desk. Classes can be booked up to 7 days in advance, and we recommend early registration as popular classes fill up quickly. If you can't attend a class you've signed up for, please cancel at least 2 hours in advance to avoid a late cancellation fee.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">How much does personal training cost?</div>
+                            <div class="faq-answer">
+                                <p>Personal training rates vary based on the trainer's experience and the package you select:</p>
+                                <ul>
+                                    <li>Single sessions range from $60-90</li>
+                                    <li>5-session packages range from $275-400</li>
+                                    <li>10-session packages range from $500-750</li>
+                                </ul>
+                                <p>New members receive a complimentary fitness consultation and workout plan with a trainer. Visit our <a href="../services/personal-training.html" class="text-link">personal training page</a> for more details.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Do you offer nutrition counseling?</div>
+                            <div class="faq-answer">
+                                <p>Yes, we offer nutrition counseling services with our certified nutritionists and dietitians. Services include personalized nutrition plans, meal planning assistance, body composition analysis, and ongoing support. These services are available as standalone offerings or can be combined with personal training for a comprehensive fitness approach. Learn more on our <a href="../services/nutrition-counseling.html" class="text-link">nutrition counseling page</a>.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Do you have childcare services?</div>
+                            <div class="faq-answer">
+                                <p>Yes, we offer supervised childcare services for children ages 6 months to 12 years. The Kids Club is available during select hours:</p>
+                                <ul>
+                                    <li><strong>Monday - Friday:</strong> 8:00 AM - 12:00 PM and 4:00 PM - 8:00 PM</li>
+                                    <li><strong>Saturday:</strong> 8:00 AM - 1:00 PM</li>
+                                    <li><strong>Sunday:</strong> Closed</li>
+                                </ul>
+                                <p>Childcare services can be added to any membership for an additional monthly fee or used on a drop-in basis. Reservations are recommended during peak hours.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Getting Started FAQs -->
+                    <div class="faq-section" id="getting-started-faq">
+                        <h3 class="faq-section-title">Getting Started</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">I'm new to fitness. How do I get started?</div>
+                            <div class="faq-answer">
+                                <p>Welcome to your fitness journey! Here's how we recommend getting started:</p>
+                                <ol>
+                                    <li>Schedule a complimentary fitness consultation with one of our trainers</li>
+                                    <li>Attend our New Member Orientation to learn about the facilities and equipment</li>
+                                    <li>Try our "Fitness Foundations" beginner-friendly classes</li>
+                                    <li>Consider starting with a few personal training sessions to build confidence</li>
+                                    <li>Download our app to track workouts and access beginner workout plans</li>
+                                </ol>
+                                <p>Our staff is always available to answer questions and provide guidance as you begin your fitness journey.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Do you offer a gym orientation?</div>
+                            <div class="faq-answer">
+                                <p>Yes, we provide complimentary gym orientations for all new members. During this 30-minute session, a staff member will give you a tour of the facility, explain how to use key equipment, review gym etiquette, and answer any questions you may have. Orientations can be scheduled at the front desk or through our app.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Can I try the gym before joining?</div>
+                            <div class="faq-answer">
+                                <p>Absolutely! We offer several ways to experience PowerFit before committing to a membership:</p>
+                                <ul>
+                                    <li>One-day free guest pass (available through our website)</li>
+                                    <li>Three-day trial pass for $25 (applicable to membership if you join)</li>
+                                    <li>Attend an open house event (held monthly)</li>
+                                </ul>
+                                <p>To arrange a visit, simply fill out the form on our website or stop by the front desk with a valid ID.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">What should I bring for my first workout?</div>
+                            <div class="faq-answer">
+                                <p>For your first visit, we recommend bringing:</p>
+                                <ul>
+                                    <li>Comfortable workout clothes</li>
+                                    <li>Athletic shoes (closed-toe)</li>
+                                    <li>Water bottle (we have filling stations throughout the facility)</li>
+                                    <li>Lock for the day-use lockers (or you can purchase one at our pro shop)</li>
+                                    <li>Towel (provided for Premium and Ultimate members, available for rent for Standard members)</li>
+                                    <li>Valid ID for check-in</li>
+                                </ul>
+                                <p>If you're attending a specific class, check if any special equipment is needed, though most classes provide all necessary equipment.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">I have a medical condition. Can I still work out?</div>
+                            <div class="faq-answer">
+                                <p>Many people with various medical conditions can safely exercise with proper guidance. We recommend:</p>
+                                <ul>
+                                    <li>Consulting your healthcare provider before starting any exercise program</li>
+                                    <li>Informing our fitness staff about your condition during your initial consultation</li>
+                                    <li>Considering our Medical Exercise program, designed specifically for individuals with health concerns</li>
+                                    <li>Working with one of our certified Special Populations Trainers who have additional training in working with clients with medical conditions</li>
+                                </ul>
+                                <p>We're committed to helping you find safe and effective ways to improve your health through appropriate exercise.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Policies FAQs -->
+                    <div class="faq-section" id="policies-faq">
+                        <h3 class="faq-section-title">Gym Policies</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">What is your guest policy?</div>
+                            <div class="faq-answer">
+                                <p>Members may bring guests to the gym under these guidelines:</p>
+                                <ul>
+                                    <li>Premium and Ultimate members receive 3 free guest passes per month</li>
+                                    <li>Standard members can bring guests for a fee of $15 per visit</li>
+                                    <li>The same guest can visit up to 3 times per month</li>
+                                    <li>Guests must be accompanied by the member and sign a waiver</li>
+                                    <li>Guests must provide valid ID</li>
+                                </ul>
+                                <p>Guest privileges may be limited during peak hours at management's discretion.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">What is the age requirement for gym use?</div>
+                            <div class="faq-answer">
+                                <p>Our age policies are as follows:</p>
+                                <ul>
+                                    <li>Members must be at least 16 years old to use the gym facilities without supervision</li>
+                                    <li>Youth ages 13-15 may use the gym when directly supervised by a parent/guardian or during designated teen hours</li>
+                                    <li>Children 12 and under can participate in Kids Club activities and youth-specific programs only</li>
+                                    <li>Some specialized equipment and areas may have additional age restrictions for safety</li>
+                                </ul>
+                                <p>We also offer specific youth fitness programs and family workout times.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">What is your cell phone policy?</div>
+                            <div class="faq-answer">
+                                <p>We ask members to follow these guidelines regarding cell phone use:</p>
+                                <ul>
+                                    <li>Phone calls should be taken in the lobby or designated areas, not on the fitness floor</li>
+                                    <li>Photography or video recording is prohibited in locker rooms and restricted in workout areas to respect members' privacy</li>
+                                    <li>Music must be listened to with headphones</li>
+                                    <li>Limited phone use is permitted for fitness tracking apps or viewing workout instructions</li>
+                                    <li>Please be considerate and limit screen time while using equipment during busy periods</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">What happens if I forget my key card/fob?</div>
+                            <div class="faq-answer">
+                                <p>If you forget your membership key card/fob, you can still access the gym by:</p>
+                                <ul>
+                                    <li>Checking in at the front desk with a valid photo ID</li>
+                                    <li>Using our mobile app's digital check-in feature</li>
+                                    <li>Verifying your membership through your phone number and security question</li>
+                                </ul>
+                                <p>We allow up to 3 check-ins without your card per month. If you've lost your card, a replacement can be issued for a small fee.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Do you have a dress code?</div>
+                            <div class="faq-answer">
+                                <p>For safety, hygiene, and comfort of all members, we maintain these dress code guidelines:</p>
+                                <ul>
+                                    <li>Appropriate athletic footwear (closed-toe shoes) must be worn in workout areas</li>
+                                    <li>Clean, suitable athletic attire is required</li>
+                                    <li>Shirts/tops must be worn at all times (except in pool/sauna areas)</li>
+                                    <li>Clothing with offensive or inappropriate messaging is not permitted</li>
+                                    <li>A separate pair of clean indoor shoes is required during winter months</li>
+                                </ul>
+                                <p>Management reserves the right to make determinations on appropriate attire.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="more-questions fade-up">
+                    <h3>Still Have Questions?</h3>
+                    <p>We're here to help! If you couldn't find the answer you were looking for, please reach out to our team through any of these channels:</p>
+                    <div class="btn-group">
+                        <a href="../../index.html#contact" class="btn btn-primary">Contact Us</a>
+                        <a href="tel:5551234567" class="btn btn-secondary">Call (555) 123-4567</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>PowerFit</h2>
+                    <p>At PowerFit, we're committed to helping you achieve your fitness goals through personalized training, state-of-the-art equipment, and a supportive community.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="../../index.html#home">Home</a></li>
+                            <li><a href="../../index.html#about">About Us</a></li>
+                            <li><a href="../../index.html#services">Services</a></li>
+                            <li><a href="../../index.html#trainers">Our Team</a></li>
+                            <li><a href="../../index.html#pricing">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Our Services</h3>
+                        <ul>
+                            <li><a href="../services/strength-training.html">Strength Training</a></li>
+                            <li><a href="../services/cardio-classes.html">Cardio Classes</a></li>
+                            <li><a href="../services/yoga-pilates.html">Yoga & Pilates</a></li>
+                            <li><a href="../services/personal-training.html">Personal Training</a></li>
+                            <li><a href="../services/nutrition-counseling.html">Nutrition Counseling</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="./faq.html">FAQ</a></li>
+                            <li><a href="./terms.html">Terms of Service</a></li>
+                            <li><a href="./privacy.html">Privacy Policy</a></li>
+                            <li><a href="../../index.html#contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 PowerFit Gym. All Rights Reserved.</p>
+                <div class="footer-legal">
+                    <a href="./terms.html">Terms of Service</a>
+                    <a href="./privacy.html">Privacy Policy</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../script.js"></script>
+    <script>
+        // Additional page-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all animated elements
+            document.querySelectorAll('.fade-up, .fade-in-left, .fade-in-right').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // FAQ functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // Tab functionality
+            const tabs = document.querySelectorAll('.faq-tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.faq-tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Hide all sections
+                    document.querySelectorAll('.faq-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // Show related section
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId + '-faq').classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

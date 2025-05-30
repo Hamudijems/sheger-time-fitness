@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strength Training | PowerFit Gym</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Page specific styles */
+        .page-hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../images/strength-training.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.5), transparent 70%);
+            animation: heroGlow 8s infinite alternate;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--light-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--light-color);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            z-index: 2;
+            position: relative;
+        }
+
+        .page-content {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+
+        .content-block {
+            margin-bottom: 60px;
+        }
+
+        .content-block h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .content-block h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .content-block p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .content-block ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .content-block li {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .content-block li::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .two-column {
+            display: flex;
+            gap: 40px;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .content-image {
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .content-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .content-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), transparent);
+            z-index: 1;
+        }
+
+        .content-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Animation classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .two-column {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="glass-nav">
+        <div class="nav-container">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>PowerFit</h1>
+                    <span class="tagline">FITNESS REDEFINED</span>
+                </div>
+            </div>
+            
+            <div class="nav-toggle" id="navToggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul class="nav-links" id="navLinks">
+                    <li class="nav-item"><a href="../../index.html#home" class="nav-link"><span>Home</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#about" class="nav-link"><span>About</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#services" class="nav-link"><span>Services</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#trainers" class="nav-link"><span>Trainers</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#pricing" class="nav-link"><span>Pricing</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#contact" class="nav-link"><span>Contact</span></a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="../../index.html#pricing" class="btn btn-nav">Join Now</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">Strength Training</h1>
+            <p class="page-subtitle">Build muscle, increase power, and transform your body with our expert-led strength training programs</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="content-block fade-up">
+                <h2>Unleash Your Strength Potential</h2>
+                <div class="two-column">
+                    <div class="column fade-in-left">
+                        <p>At PowerFit Gym, our strength training programs are designed to help you build muscle mass, increase your strength, and transform your physique. Whether you're a beginner looking to start your fitness journey or an experienced lifter aiming to break through plateaus, our expert trainers will guide you every step of the way.</p>
+                        
+                        <p>Our state-of-the-art equipment and specialized training zones create the perfect environment for you to challenge yourself and achieve your strength goals. We combine traditional weightlifting techniques with modern training methodologies to deliver the most effective strength building experience.</p>
+                        
+                        <ul>
+                            <li>Professional guidance from certified strength coaches</li>
+                            <li>Customized training programs based on your goals</li>
+                            <li>Advanced equipment for all major muscle groups</li>
+                            <li>Form correction and technique improvement</li>
+                            <li>Progressive overload principles for continuous progress</li>
+                        </ul>
+                    </div>
+                    <div class="column content-image fade-in-right">
+                        <img src="../../images/strength-training-1.jpg" alt="Strength training at PowerFit Gym">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Our Strength Training Approach</h2>
+                <div class="two-column">
+                    <div class="column content-image fade-in-left">
+                        <img src="../../images/strength-training-2.jpg" alt="PowerFit strength training approach">
+                    </div>
+                    <div class="column fade-in-right">
+                        <p>We believe that proper strength training is about more than just lifting weights. It's about understanding your body, learning correct technique, and following a strategic progression that leads to real, sustainable results.</p>
+                        
+                        <p>Our comprehensive approach includes:</p>
+                        
+                        <ul>
+                            <li>Initial assessment to determine your starting point</li>
+                            <li>Personalized program design based on your body type and goals</li>
+                            <li>Nutrition guidance to fuel your strength gains</li>
+                            <li>Regular progress tracking and program adjustments</li>
+                            <li>Recovery protocols to minimize injury risk and maximize results</li>
+                        </ul>
+                        
+                        <p>Whether you want to build muscle for aesthetics, increase strength for sports performance, or improve your overall functional fitness, our strength training programs provide the structure and guidance you need.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Strength Training Programs</h2>
+                <div class="two-column">
+                    <div class="column fade-in-left">
+                        <p>We offer a variety of strength training programs to accommodate different goals and experience levels:</p>
+                        
+                        <ul>
+                            <li><strong>Beginner Strength Foundations</strong> - Learn proper form and build base strength</li>
+                            <li><strong>Hypertrophy Focus</strong> - Specialized for maximum muscle growth</li>
+                            <li><strong>Power Development</strong> - Emphasis on explosive strength and athletic performance</li>
+                            <li><strong>Advanced Strength</strong> - For experienced lifters looking to break plateaus</li>
+                            <li><strong>Functional Strength</strong> - Balance strength gains with everyday movement patterns</li>
+                        </ul>
+                        
+                        <p>Each program is adaptable to your schedule, with options for 2-5 training sessions per week. Our coaches will help you select the right program and make adjustments as you progress.</p>
+                        
+                        <p>Ready to start your strength journey? Speak with one of our trainers today or <a href="../../index.html#contact" class="text-link">contact us</a> for more information.</p>
+                    </div>
+                    <div class="column content-image fade-in-right">
+                        <img src="../../images/strength-training-3.jpg" alt="PowerFit strength training programs">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>PowerFit</h2>
+                    <p>At PowerFit, we're committed to helping you achieve your fitness goals through personalized training, state-of-the-art equipment, and a supportive community.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="../../index.html#home">Home</a></li>
+                            <li><a href="../../index.html#about">About Us</a></li>
+                            <li><a href="../../index.html#services">Services</a></li>
+                            <li><a href="../../index.html#trainers">Our Team</a></li>
+                            <li><a href="../../index.html#pricing">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Our Services</h3>
+                        <ul>
+                            <li><a href="./strength-training.html">Strength Training</a></li>
+                            <li><a href="./cardio-classes.html">Cardio Classes</a></li>
+                            <li><a href="./yoga-pilates.html">Yoga & Pilates</a></li>
+                            <li><a href="./personal-training.html">Personal Training</a></li>
+                            <li><a href="./nutrition-counseling.html">Nutrition Counseling</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="../support/faq.html">FAQ</a></li>
+                            <li><a href="../support/terms.html">Terms of Service</a></li>
+                            <li><a href="../support/privacy.html">Privacy Policy</a></li>
+                            <li><a href="../../index.html#contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 PowerFit Gym. All Rights Reserved.</p>
+                <div class="footer-legal">
+                    <a href="../support/terms.html">Terms of Service</a>
+                    <a href="../support/privacy.html">Privacy Policy</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../script.js"></script>
+    <script>
+        // Additional page-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all animated elements
+            document.querySelectorAll('.fade-up, .fade-in-left, .fade-in-right').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html> 

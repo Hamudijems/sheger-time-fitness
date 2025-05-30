@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedules | Sheger Time Fitness</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fixes.css">
+    <link rel="stylesheet" href="enhanced-visuals.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    
+    <style>
+        /* Custom styles for schedule page */
+        .schedule-hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .schedule-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .schedule-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .schedule-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 40px 0;
+        }
+        
+        .schedule-tab {
+            padding: 12px 24px;
+            background-color: #f5f5f5;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .schedule-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .schedule-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .schedule-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .schedule-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .class-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+        
+        .class-name {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .class-time {
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+        
+        .class-trainer {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .empty-slot {
+            color: #aaa;
+            font-style: italic;
+        }
+        
+        .schedule-note {
+            background-color: rgba(255,0,0,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .schedule-note h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .schedule-cta {
+            background: linear-gradient(135deg, rgba(255,0,0,0.1) 0%, rgba(255,0,0,0.05) 100%);
+            padding: 50px 20px;
+            text-align: center;
+            margin: 60px 0;
+            border-radius: 10px;
+        }
+        
+        .mobile-schedule {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-schedule {
+                display: none;
+            }
+            
+            .mobile-schedule {
+                display: block;
+            }
+            
+            .day-schedule {
+                margin-bottom: 30px;
+                border: 1px solid #eee;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+            
+            .day-header {
+                background-color: var(--primary-color);
+                color: white;
+                padding: 15px;
+                text-align: center;
+                font-weight: 600;
+            }
+            
+            .class-block {
+                padding: 15px;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .class-block:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="glass-nav">
+        <div class="nav-container">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Sheger Time</h1>
+                    <span class="tagline">FITNESS</span>
+                </div>
+            </div>
+            
+            <div class="nav-toggle" id="navToggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul class="nav-links" id="navLinks">
+                    <li class="nav-item"><a href="index.html#home" class="nav-link"><span>Home</span></a></li>
+                    <li class="nav-item"><a href="index.html#about" class="nav-link"><span>About</span></a></li>
+                    <li class="nav-item"><a href="index.html#services" class="nav-link"><span>Services</span></a></li>
+                    <li class="nav-item"><a href="index.html#trainers" class="nav-link"><span>Trainers</span></a></li>
+                    <li class="nav-item"><a href="schedules.html" class="nav-link active"><span>Schedules</span></a></li>
+                    <li class="nav-item"><a href="index.html#pricing" class="nav-link"><span>Pricing</span></a></li>
+                    <li class="nav-item"><a href="index.html#contact" class="nav-link"><span>Contact</span></a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="index.html#pricing" class="btn btn-nav">Join Now</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="schedule-hero">
+        <div class="container">
+            <h1>Class Schedules</h1>
+            <p>Find the perfect time to join our fitness classes and start your journey to a healthier lifestyle</p>
+        </div>
+    </section>
+
+    <section class="schedule-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Weekly Class Schedule</h2>
+                <p>Choose Your Class, Track Your Progress</p>
+            </div>
+            
+            <div class="schedule-tabs">
+    <div class="schedule-tab active" data-tab="all">All Services</div>
+</div>
+
+<div class="desktop-schedule">
+    <table class="schedule-table">
+        <thead>
+            <tr>
+                <th width="20%">Service</th>
+                <th width="80%">Schedule</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Gym</td>
+                <td>Mon – Sat: 12:00 PM – 3:00 PM<br>Sun: 12:00 PM – 6:00 AM</td>
+            </tr>
+            <tr>
+                <td>Eiro Morning</td>
+                <td>Mon – Sat: 1:00 – 2:00</td>
+            </tr>
+            <tr>
+                <td>Eiro Evening</td>
+                <td>Mon, Wed, Fri: 12:00 – 1:00</td>
+            </tr>
+            <tr>
+                <td>Teakwando</td>
+                <td>Thu, Sat, Sun: 10:30 – 12:30 PM</td>
+            </tr>
+            <tr>f
+                <td>Only Women</td>
+                <td>Mon, Wed, Fri: 5:00 – 8:00</td>
+            </tr>
+            <tr>
+                <td>Boxing</td>
+                <td>Tue, Thu, Sat: 5:00 – 8:00</td>
+            </tr>
+            <tr>
+                <td>Steam & Sauna (Men Members)</td>
+                <td>Mon & Tue: 1:30 – 4:00 AM<br>Mon: 12:30 – 3:00 PM</td>
+            </tr>
+            <tr>
+                <td>Steam & Sauna (Women Members)</td>
+                <td>Fri & Sat: 1:30 – 4:00 AM<br>Fri: 12:30 – 3:00 PM</td>
+            </tr>
+            <tr>
+                <td>Steam & Sauna (Non-Members
+
+            
+            <div class="schedule-note">
+                <h3><i class="fas fa-info-circle"></i> Important Notes</h3>
+                <ul>
+                    <li>Please arrive 10-15 minutes before class starts</li>
+                    <li>Wear comfortable workout clothes and bring a water bottle</li>
+                    <li>Beginner-friendly options are available in all classes</li>
+                    <li>Women-only classes are available - check with our front desk</li>
+                    <li>Schedule is subject to change during holidays</li>
+                </ul>
+            </div>
+           
+        </div>
+    </section>
+
+    <script src="fixes.js"></script>
+    <script src="script.js"></script>
+    <script src="animation-effects.js"></script>
+    <script src="advanced-animations.js"></script>
+    <script src="gsap-animations.js"></script>
+    
+    <script>
+        // Schedule page specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.schedule-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Get the tab type (all, aerobics, boxing, etc.)
+                    const tabType = this.getAttribute('data-tab');
+                    
+                    // Filter schedule based on tab type
+                    filterSchedule(tabType);
+                });
+            });
+            
+            // Function to filter schedule based on selected tab
+            function filterSchedule(type) {
+                // Get all class items
+                const classItems = document.querySelectorAll('.class-item');
+                
+                // If "all" is selected, show all classes
+                if (type === 'all') {
+                    classItems.forEach(item => {
+                        item.closest('td').style.display = '';
+                    });
+                    return;
+                }
+                
+                // Otherwise, filter based on class type
+                classItems.forEach(item => {
+                    const className = item.querySelector('.class-name').textContent.toLowerCase();
+                    
+                    // Map tab types to class names
+                    let match = false;
+                    
+                    if (type === 'aerobics' && className.includes('aerobic')) {
+                        match = true;
+                    } else if (type === 'boxing' && className.includes('boxing')) {
+                        match = true;
+                    } else if (type === 'strength' && className.includes('strength')) {
+                        match = true;
+                    } else if (type === 'yoga' && (className.includes('yoga') || className.includes('pilates'))) {
+                        match = true;
+                    }
+                    
+                    // Show/hide based on match
+                    if (match) {
+                        item.closest('td').style.display = '';
+                    } else {
+                        item.closest('td').style.display = 'none';
+                    }
+                });
+            }
+            
+            // Mobile day tabs functionality (if needed)
+            // This would hide/show each day's schedule on mobile
+            
+            // Schedule page specific animations
+            if (typeof gsap !== 'undefined') {
+                gsap.from('.schedule-table', {
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    scrollTrigger: {
+                        trigger: '.schedule-table',
+                        start: "top 80%"
+                    }
+                });
+                
+                gsap.from('.schedule-tab', {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.5,
+                    stagger: 0.1,
+                    scrollTrigger: {
+                        trigger: '.schedule-tabs',
+                        start: "top 90%"
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

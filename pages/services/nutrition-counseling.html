@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Counseling | PowerFit Gym</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Page specific styles */
+        .page-hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../images/nutrition-counseling.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.5), transparent 70%);
+            animation: heroGlow 8s infinite alternate;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--light-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--light-color);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            z-index: 2;
+            position: relative;
+        }
+
+        .page-content {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+
+        .content-block {
+            margin-bottom: 60px;
+        }
+
+        .content-block h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .content-block h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .content-block p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .content-block ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .content-block li {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .content-block li::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .two-column {
+            display: flex;
+            gap: 40px;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .content-image {
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .content-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .content-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), transparent);
+            z-index: 1;
+        }
+
+        .content-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Process steps */
+        .process-steps {
+            counter-reset: step-counter;
+            margin: 50px 0;
+        }
+        
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .step-number {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            flex-shrink: 0;
+            counter-increment: step-counter;
+        }
+        
+        .step-number::before {
+            content: counter(step-counter);
+        }
+        
+        .step-content {
+            padding-top: 5px;
+        }
+        
+        .step-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .step-desc {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #444;
+        }
+        
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 60px;
+            height: calc(100% - 20px);
+            width: 2px;
+            background-color: #e0e0e0;
+        }
+
+        /* Service cards */
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-card-header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .service-card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .service-card-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 10px 0 0;
+            color: white;
+        }
+
+        .service-card-content {
+            padding: 25px;
+        }
+
+        .service-card-desc {
+            margin-bottom: 20px;
+        }
+
+        .service-card-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 25px;
+        }
+
+        .service-card-features li {
+            padding: 0 0 0 25px;
+            margin-bottom: 12px;
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .service-card-features li::before {
+            content: "\f058";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        .service-card .btn {
+            width: 100%;
+        }
+
+        /* FAQ styles */
+        .faq-container {
+            margin-top: 30px;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+        
+        .faq-question {
+            padding: 15px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            cursor: pointer;
+            position: relative;
+            padding-right: 30px;
+        }
+        
+        .faq-question::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 0;
+            top: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question::after {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding-right: 30px;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding-bottom: 20px;
+        }
+
+        /* Animation classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .two-column {
+                flex-direction: column;
+            }
+
+            .service-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="glass-nav">
+        <div class="nav-container">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>PowerFit</h1>
+                    <span class="tagline">FITNESS REDEFINED</span>
+                </div>
+            </div>
+            
+            <div class="nav-toggle" id="navToggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul class="nav-links" id="navLinks">
+                    <li class="nav-item"><a href="../../index.html#home" class="nav-link"><span>Home</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#about" class="nav-link"><span>About</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#services" class="nav-link"><span>Services</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#trainers" class="nav-link"><span>Trainers</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#pricing" class="nav-link"><span>Pricing</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#contact" class="nav-link"><span>Contact</span></a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="../../index.html#pricing" class="btn btn-nav">Join Now</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">Nutrition Counseling</h1>
+            <p class="page-subtitle">Personalized nutrition guidance to fuel your workouts, optimize recovery, and achieve your fitness goals</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="content-block fade-up">
+                <h2>Fuel Your Fitness Journey</h2>
+                <div class="two-column">
+                    <div class="column fade-in-left">
+                        <p>At PowerFit Gym, we understand that optimal nutrition is essential for achieving your fitness goals. Our nutrition counseling service provides personalized dietary guidance to complement your training regimen and enhance your results.</p>
+                        
+                        <p>Led by certified nutritionists and dietitians, our nutrition programs are based on scientific principles and tailored to your unique needs, preferences, and lifestyle. Whether you're looking to lose weight, build muscle, improve athletic performance, or simply develop healthier eating habits, our experts will create a sustainable plan that works for you.</p>
+                        
+                        <p>Benefits of our nutrition counseling include:</p>
+                        <ul>
+                            <li>Personalized nutrition plans aligned with your fitness goals</li>
+                            <li>Improved energy levels and workout performance</li>
+                            <li>Enhanced recovery between training sessions</li>
+                            <li>Sustainable approaches to healthy eating that fit your lifestyle</li>
+                            <li>Education on making better food choices for long-term success</li>
+                            <li>Support for special dietary needs and preferences</li>
+                        </ul>
+                    </div>
+                    <div class="column content-image fade-in-right">
+                        <img src="../../images/nutrition-1.jpg" alt="Nutrition counseling at PowerFit Gym">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Our Nutrition Counseling Process</h2>
+                <p>We take a comprehensive approach to nutrition that goes beyond basic meal plans. Our process is designed to create lasting changes to your relationship with food:</p>
+                
+                <div class="process-steps">
+                    <div class="process-step fade-up">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <h3 class="step-title">Comprehensive Assessment</h3>
+                            <p class="step-desc">We begin with an in-depth analysis of your current eating patterns, lifestyle factors, fitness goals, medical history, and food preferences. This detailed assessment helps us understand your unique nutritional needs and challenges.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step fade-up">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <h3 class="step-title">Goal Setting</h3>
+                            <p class="step-desc">Together with your nutritionist, you'll establish clear, achievable nutrition goals that align with your fitness objectives. We'll create both short-term and long-term targets to keep you motivated throughout your journey.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step fade-up">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <h3 class="step-title">Personalized Nutrition Plan</h3>
+                            <p class="step-desc">Based on your assessment and goals, our nutritionists create a customized eating plan that fits your lifestyle. This isn't a rigid diet but a flexible framework that includes meal timing, portion guidance, and food suggestions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step fade-up">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <h3 class="step-title">Education and Implementation</h3>
+                            <p class="step-desc">You'll learn practical skills like meal planning, grocery shopping strategies, reading food labels, and preparing balanced meals. We focus on building sustainable habits rather than following restrictive rules.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step fade-up">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <h3 class="step-title">Regular Follow-ups</h3>
+                            <p class="step-desc">Through scheduled check-ins, we'll monitor your progress, address challenges, answer questions, and make necessary adjustments to your nutrition plan as your body adapts and your goals evolve.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Our Nutrition Services</h2>
+                <p>Choose the nutrition counseling option that best fits your needs and goals:</p>
+                
+                <div class="service-cards">
+                    <div class="service-card fade-up">
+                        <div class="service-card-header">
+                            <h3 class="service-card-title">Initial Consultation</h3>
+                            <p class="service-card-price">$99</p>
+                        </div>
+                        <div class="service-card-content">
+                            <p class="service-card-desc">A comprehensive starting point for your nutrition journey, perfect for those new to nutrition counseling.</p>
+                            <ul class="service-card-features">
+                                <li>60-minute initial assessment</li>
+                                <li>Current diet analysis</li>
+                                <li>Goal setting session</li>
+                                <li>Basic nutrition education</li>
+                                <li>Personalized recommendations</li>
+                            </ul>
+                            <a href="../../index.html#contact" class="btn btn-primary">Book Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card fade-up">
+                        <div class="service-card-header">
+                            <h3 class="service-card-title">Monthly Package</h3>
+                            <p class="service-card-price">$249</p>
+                        </div>
+                        <div class="service-card-content">
+                            <p class="service-card-desc">Ongoing support for those committed to making sustainable changes to their nutrition habits.</p>
+                            <ul class="service-card-features">
+                                <li>Initial 60-minute consultation</li>
+                                <li>Two 30-minute follow-up sessions</li>
+                                <li>Customized nutrition plan</li>
+                                <li>Meal planning assistance</li>
+                                <li>Recipe suggestions</li>
+                                <li>Email support between sessions</li>
+                            </ul>
+                            <a href="../../index.html#contact" class="btn btn-primary">Book Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card fade-up">
+                        <div class="service-card-header">
+                            <h3 class="service-card-title">Performance Nutrition</h3>
+                            <p class="service-card-price">$349</p>
+                        </div>
+                        <div class="service-card-content">
+                            <p class="service-card-desc">Specialized nutrition programming for athletes and serious fitness enthusiasts.</p>
+                            <ul class="service-card-features">
+                                <li>Comprehensive initial assessment</li>
+                                <li>Performance-focused nutrition plan</li>
+                                <li>Pre/post workout nutrition strategies</li>
+                                <li>Supplementation guidance</li>
+                                <li>Three follow-up sessions</li>
+                                <li>Body composition analysis</li>
+                                <li>Priority email & text support</li>
+                            </ul>
+                            <a href="../../index.html#contact" class="btn btn-primary">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Meet Our Nutrition Team</h2>
+                <div class="two-column">
+                    <div class="column content-image fade-in-left">
+                        <img src="../../images/nutrition-2.jpg" alt="PowerFit nutrition specialists">
+                    </div>
+                    <div class="column fade-in-right">
+                        <p>Our team of nutrition specialists brings diverse expertise to help you achieve optimal results:</p>
+                        
+                        <p><strong>Emma Wilson, MS, RD</strong><br>
+                        Emma is our head nutritionist with a Master's in Nutritional Science and specialization in sports nutrition. She has helped hundreds of clients transform their relationship with food while achieving their fitness goals.</p>
+                        
+                        <p><strong>Daniel Park, PhD</strong><br>
+                        With a doctorate in Exercise Physiology, Daniel specializes in nutrition for athletic performance, focusing on how proper nutrition can enhance training adaptations and recovery.</p>
+                        
+                        <p><strong>Sophia Martinez, RDN, CSSD</strong><br>
+                        As a Certified Specialist in Sports Dietetics, Sophia works with our competitive athletes and fitness enthusiasts to optimize their nutrition for performance, recovery, and body composition goals.</p>
+                        
+                        <p>All our nutrition specialists stay current with the latest research and take a science-based, personalized approach to nutrition counseling. They work closely with our personal trainers to ensure your nutrition plan complements your workout program.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">Do I need to follow a strict diet to see results?</div>
+                        <div class="faq-answer">
+                            <p>No, we don't believe in overly restrictive diets. Our approach focuses on sustainable eating habits that work with your lifestyle. We help you make gradual changes that lead to lasting results rather than quick fixes that are difficult to maintain long-term.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">How is your nutrition counseling different from online diet plans?</div>
+                        <div class="faq-answer">
+                            <p>Unlike generic online plans, our nutrition counseling is completely personalized to your unique needs, preferences, and goals. We consider factors like your medical history, lifestyle, food preferences, and workout schedule to create a plan that works specifically for you. Plus, you get ongoing support and adjustments as needed.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">How quickly will I see results from nutrition counseling?</div>
+                        <div class="faq-answer">
+                            <p>Results vary depending on your starting point, goals, and consistency. Many clients report feeling more energetic and seeing improvements in their workouts within 1-2 weeks. Physical changes like weight loss or muscle gain typically become noticeable within 4-8 weeks of consistent implementation.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Can you accommodate special dietary needs like vegetarian, vegan, or gluten-free?</div>
+                        <div class="faq-answer">
+                            <p>Absolutely! Our nutritionists are experienced in working with various dietary preferences and restrictions. Whether you follow a plant-based diet, have food allergies, or need to avoid certain foods for medical or ethical reasons, we'll create a plan that meets your nutritional needs while respecting your dietary choices.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Do I need to be a gym member to use your nutrition counseling services?</div>
+                        <div class="faq-answer">
+                            <p>While our nutrition services integrate seamlessly with our gym programs, you don't need to be a PowerFit member to work with our nutrition team. We welcome clients who are only interested in nutrition counseling, although many find combining both services yields optimal results.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="fade-up" style="margin-top: 40px; text-align: center;">Have more questions about our nutrition counseling services? <a href="../../index.html#contact" class="text-link">Contact us</a> today to learn how we can help you achieve your nutrition and fitness goals.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>PowerFit</h2>
+                    <p>At PowerFit, we're committed to helping you achieve your fitness goals through personalized training, state-of-the-art equipment, and a supportive community.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="../../index.html#home">Home</a></li>
+                            <li><a href="../../index.html#about">About Us</a></li>
+                            <li><a href="../../index.html#services">Services</a></li>
+                            <li><a href="../../index.html#trainers">Our Team</a></li>
+                            <li><a href="../../index.html#pricing">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Our Services</h3>
+                        <ul>
+                            <li><a href="./strength-training.html">Strength Training</a></li>
+                            <li><a href="./cardio-classes.html">Cardio Classes</a></li>
+                            <li><a href="./yoga-pilates.html">Yoga & Pilates</a></li>
+                            <li><a href="./personal-training.html">Personal Training</a></li>
+                            <li><a href="./nutrition-counseling.html">Nutrition Counseling</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="../support/faq.html">FAQ</a></li>
+                            <li><a href="../support/terms.html">Terms of Service</a></li>
+                            <li><a href="../support/privacy.html">Privacy Policy</a></li>
+                            <li><a href="../../index.html#contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 PowerFit Gym. All Rights Reserved.</p>
+                <div class="footer-legal">
+                    <a href="../support/terms.html">Terms of Service</a>
+                    <a href="../support/privacy.html">Privacy Policy</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../script.js"></script>
+    <script>
+        // Additional page-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all animated elements
+            document.querySelectorAll('.fade-up, .fade-in-left, .fade-in-right').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // FAQ functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

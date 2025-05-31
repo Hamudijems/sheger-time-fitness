@@ -1,0 +1,288 @@
+/* Enhanced visual effects for overall website */
+
+/* Gradient text effects */
+.gradient-text {
+    background: linear-gradient(45deg, var(--primary-color), #ff6666);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+/* Enhanced box shadows */
+.glass-nav {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 
+                0 0 10px rgba(255, 0, 0, 0.1);
+}
+
+.service-card, .trainer-card, .pricing-card {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 
+                0 5px 15px rgba(0, 0, 0, 0.07);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.service-card:hover, .trainer-card:hover, .pricing-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15),
+                0 10px 20px rgba(255, 0, 0, 0.1);
+}
+
+/* Neon glow effects */
+.pricing-card.featured::before {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+    animation: neon-pulse 2s infinite alternate;
+}
+
+@keyframes neon-pulse {
+    from { box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
+    to { box-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 40px rgba(255, 0, 0, 0.5); }
+}
+
+/* Animated borders */
+.contact-form {
+    position: relative;
+    z-index: 1;
+}
+
+.contact-form::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--primary-color), transparent, var(--primary-color));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: inherit;
+}
+
+.contact-form:hover::before {
+    opacity: 1;
+    animation: rotate-border 3s linear infinite;
+}
+
+@keyframes rotate-border {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 300% 0%; }
+}
+
+/* Smooth parallax backgrounds */
+.section {
+    position: relative;
+    overflow: hidden;
+}
+
+.parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    transform: translateY(0);
+    transition: transform 0.1s ease-out;
+}
+
+/* Enhanced form elements */
+input, textarea, select {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Button glow effect */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.btn:hover::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color) 0%, #ff5050 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #ff5050 0%, var(--primary-color) 100%);
+}
+
+/* Image hover effects */
+.gallery-item {
+    overflow: hidden;
+    position: relative;
+}
+
+.gallery-item img {
+    transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1),
+                filter 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.gallery-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+}
+
+.gallery-item:hover::before {
+    opacity: 1;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.15) rotate(3deg);
+    filter: brightness(0.8) contrast(1.2);
+}
+
+/* Animated wave effect for header */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="rgba(249, 249, 249, 0.8)"></path></svg>') no-repeat;
+    background-size: cover;
+    background-position: center top;
+    z-index: 2;
+}
+
+/* Enhanced navbar with backdrop blur */
+.glass-nav {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+/* Shine effect on cards */
+.service-card::after,
+.trainer-card::after,
+.pricing-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent
+    );
+    transition: 0.5s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.service-card:hover::after,
+.trainer-card:hover::after,
+.pricing-card:hover::after {
+    left: 100%;
+}
+
+/* Enhanced loading spinner */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+    to { transform: rotate(360deg); }
+}
+
+/* Better section dividers */
+.section-divider {
+    position: relative;
+    height: 100px;
+    background: transparent;
+    overflow: hidden;
+}
+
+.section-divider::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M1200 0L0 0 598.97 114.72 1200 0z" fill="%23ffffff"></path></svg>') no-repeat;
+    background-size: cover;
+}
+
+/* 3D transforms for pricing cards */
+.pricing-card {
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.pricing-card.featured {
+    transform: translateY(-20px) rotateY(0deg);
+}
+
+.pricing-card:hover {
+    transform: translateY(-15px) rotateY(5deg);
+}
+
+.pricing-card.featured:hover {
+    transform: translateY(-30px) rotateY(5deg);
+}
+
+/* Text highlight animations */
+.highlight-text {
+    position: relative;
+    display: inline-block;
+}
+
+.highlight-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background-color: rgba(255, 0, 0, 0.2);
+    z-index: -1;
+    transform: rotate(-2deg) translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.highlight-text:hover::after {
+    transform: rotate(0deg) translateY(-2px);
+    height: 50%;
+} 

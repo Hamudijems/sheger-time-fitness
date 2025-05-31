@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga & Pilates | PowerFit Gym</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Page specific styles */
+        .page-hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../images/yoga-pilates.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.5), transparent 70%);
+            animation: heroGlow 8s infinite alternate;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--light-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--light-color);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            z-index: 2;
+            position: relative;
+        }
+
+        .page-content {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+
+        .content-block {
+            margin-bottom: 60px;
+        }
+
+        .content-block h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .content-block h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .content-block p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .content-block ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .content-block li {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .content-block li::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .two-column {
+            display: flex;
+            gap: 40px;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .content-image {
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .content-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .content-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), transparent);
+            z-index: 1;
+        }
+
+        .content-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Class cards */
+        .class-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .class-card {
+            background: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .class-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .class-card-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .class-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .class-card:hover .class-card-image img {
+            transform: scale(1.1);
+        }
+
+        .class-card-content {
+            padding: 25px;
+        }
+
+        .class-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .class-level {
+            display: inline-block;
+            padding: 3px 10px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .class-level.beginner {
+            background: #e0f7e0;
+            color: #2c612c;
+        }
+
+        .class-level.intermediate {
+            background: #e0f0f7;
+            color: #2c4d61;
+        }
+
+        .class-level.advanced {
+            background: #f7e0e0;
+            color: #612c2c;
+        }
+
+        .class-level.all-levels {
+            background: #f0e0f7;
+            color: #4d2c61;
+        }
+
+        /* Animation classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .two-column {
+                flex-direction: column;
+            }
+
+            .class-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="glass-nav">
+        <div class="nav-container">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>PowerFit</h1>
+                    <span class="tagline">FITNESS REDEFINED</span>
+                </div>
+            </div>
+            
+            <div class="nav-toggle" id="navToggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul class="nav-links" id="navLinks">
+                    <li class="nav-item"><a href="../../index.html#home" class="nav-link"><span>Home</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#about" class="nav-link"><span>About</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#services" class="nav-link"><span>Services</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#trainers" class="nav-link"><span>Trainers</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#pricing" class="nav-link"><span>Pricing</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#contact" class="nav-link"><span>Contact</span></a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="../../index.html#pricing" class="btn btn-nav">Join Now</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">Yoga & Pilates</h1>
+            <p class="page-subtitle">Find balance, build core strength, and increase flexibility with our mindful movement classes</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="content-block fade-up">
+                <h2>Find Your Inner Balance</h2>
+                <div class="two-column">
+                    <div class="column fade-in-left">
+                        <p>At PowerFit Gym, our Yoga and Pilates programs offer a perfect complement to your strength and cardio workouts. These mindful movement practices focus on building core strength, increasing flexibility, and creating balance between body and mind.</p>
+                        
+                        <p>Our expert instructors are trained in multiple disciplines and teaching methods, ensuring safe and effective classes for practitioners of all levels. Whether you're a complete beginner or have years of experience, our classes are designed to meet you where you are and help you progress.</p>
+                        
+                        <p>Benefits of our Yoga and Pilates classes include:</p>
+                        <ul>
+                            <li>Improved flexibility and joint mobility</li>
+                            <li>Increased core strength and stability</li>
+                            <li>Better posture and body alignment</li>
+                            <li>Reduced stress and improved mental clarity</li>
+                            <li>Enhanced mind-body connection</li>
+                            <li>Complementary training for other fitness activities</li>
+                        </ul>
+                    </div>
+                    <div class="column content-image fade-in-right">
+                        <img src="../../images/yoga-pilates-1.jpg" alt="Yoga class at PowerFit Gym">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Our Yoga Offerings</h2>
+                <p>We offer a variety of yoga styles to suit different preferences, goals, and experience levels:</p>
+                
+                <div class="class-cards">
+                    <div class="class-card fade-up">
+                        <div class="class-card-image">
+                            <img src="../../images/vinyasa-yoga.jpg" alt="Vinyasa Flow Yoga">
+                        </div>
+                        <div class="class-card-content">
+                            <span class="class-level all-levels">All Levels</span>
+                            <h3>Vinyasa Flow</h3>
+                            <p>A dynamic practice synchronizing breath with movement. Poses flow from one to another in a dance-like way. Great for building strength, flexibility, and focus.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="class-card fade-up">
+                        <div class="class-card-image">
+                            <img src="../../images/hatha-yoga.jpg" alt="Hatha Yoga">
+                        </div>
+                        <div class="class-card-content">
+                            <span class="class-level beginner">Beginner Friendly</span>
+                            <h3>Hatha Yoga</h3>
+                            <p>A gentle introduction to basic yoga poses. Perfect for beginners or those looking for a more relaxed practice with emphasis on proper alignment.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="class-card fade-up">
+                        <div class="class-card-image">
+                            <img src="../../images/power-yoga.jpg" alt="Power Yoga">
+                        </div>
+                        <div class="class-card-content">
+                            <span class="class-level intermediate">Intermediate</span>
+                            <h3>Power Yoga</h3>
+                            <p>A fitness-based approach to vinyasa yoga with emphasis on strength and flexibility. More intense and faster-paced than traditional forms.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="class-card fade-up">
+                        <div class="class-card-image">
+                            <img src="../../images/yin-yoga.jpg" alt="Yin Yoga">
+                        </div>
+                        <div class="class-card-content">
+                            <span class="class-level all-levels">All Levels</span>
+                            <h3>Yin Yoga</h3>
+                            <p>A slow-paced style with poses held for longer periods. Targets deep connective tissues and improves flexibility and joint mobility.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Our Pilates Program</h2>
+                <div class="two-column">
+                    <div class="column content-image fade-in-left">
+                        <img src="../../images/pilates.jpg" alt="Pilates class at PowerFit">
+                    </div>
+                    <div class="column fade-in-right">
+                        <p>Our Pilates program focuses on developing core strength, proper posture, and efficient movement patterns. Through controlled movements and precise breathing, Pilates helps build a strong foundation for all physical activities.</p>
+                        
+                        <p>We offer both mat-based Pilates classes and equipment sessions:</p>
+                        
+                        <ul>
+                            <li><strong>Mat Pilates</strong> - Classical exercises performed on a mat, using body weight as resistance</li>
+                            <li><strong>Reformer Pilates</strong> - Utilizing the Pilates reformer machine for added resistance and support</li>
+                            <li><strong>Mixed Equipment</strong> - Classes incorporating various Pilates apparatus like the Cadillac, Chair, and Barrels</li>
+                            <li><strong>Core Fusion</strong> - A blend of Pilates principles with functional fitness movements</li>
+                        </ul>
+                        
+                        <p>All our Pilates instructors are comprehensively certified and focus on proper technique and form to ensure safe and effective workouts. Private and semi-private sessions are also available for those looking for more personalized instruction.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Mind-Body Connection</h2>
+                <p>Beyond the physical benefits, our Yoga and Pilates classes are designed to help you develop a stronger mind-body connection. Through mindful movement and breathing techniques, you'll learn to be more present in your practice and daily life.</p>
+                
+                <div class="two-column">
+                    <div class="column fade-in-left">
+                        <p>Our holistic approach includes:</p>
+                        <ul>
+                            <li>Breath awareness and control techniques</li>
+                            <li>Meditation and mindfulness practices</li>
+                            <li>Stress reduction strategies</li>
+                            <li>Body awareness and proprioception training</li>
+                            <li>Movement efficiency principles</li>
+                        </ul>
+                        
+                        <p>Many members find that regular practice of Yoga and Pilates enhances their performance in other fitness activities while reducing injury risk and improving overall wellbeing.</p>
+                        
+                        <p>Ready to find your center? <a href="../../index.html#pricing" class="text-link">Join us</a> today or check our <a href="../../index.html#schedule" class="text-link">class schedule</a> to get started with Yoga and Pilates at PowerFit Gym.</p>
+                    </div>
+                    <div class="column content-image fade-in-right">
+                        <img src="../../images/yoga-pilates-2.jpg" alt="Mind-body connection through yoga">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>PowerFit</h2>
+                    <p>At PowerFit, we're committed to helping you achieve your fitness goals through personalized training, state-of-the-art equipment, and a supportive community.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="../../index.html#home">Home</a></li>
+                            <li><a href="../../index.html#about">About Us</a></li>
+                            <li><a href="../../index.html#services">Services</a></li>
+                            <li><a href="../../index.html#trainers">Our Team</a></li>
+                            <li><a href="../../index.html#pricing">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Our Services</h3>
+                        <ul>
+                            <li><a href="./strength-training.html">Strength Training</a></li>
+                            <li><a href="./cardio-classes.html">Cardio Classes</a></li>
+                            <li><a href="./yoga-pilates.html">Yoga & Pilates</a></li>
+                            <li><a href="./personal-training.html">Personal Training</a></li>
+                            <li><a href="./nutrition-counseling.html">Nutrition Counseling</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="../support/faq.html">FAQ</a></li>
+                            <li><a href="../support/terms.html">Terms of Service</a></li>
+                            <li><a href="../support/privacy.html">Privacy Policy</a></li>
+                            <li><a href="../../index.html#contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 PowerFit Gym. All Rights Reserved.</p>
+                <div class="footer-legal">
+                    <a href="../support/terms.html">Terms of Service</a>
+                    <a href="../support/privacy.html">Privacy Policy</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../script.js"></script>
+    <script>
+        // Additional page-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all animated elements
+            document.querySelectorAll('.fade-up, .fade-in-left, .fade-in-right').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Training | PowerFit Gym</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Page specific styles */
+        .page-hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../images/personal-training.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.5), transparent 70%);
+            animation: heroGlow 8s infinite alternate;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--light-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--light-color);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            z-index: 2;
+            position: relative;
+        }
+
+        .page-content {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+
+        .content-block {
+            margin-bottom: 60px;
+        }
+
+        .content-block h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .content-block h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .content-block p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .content-block ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .content-block li {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .content-block li::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .two-column {
+            display: flex;
+            gap: 40px;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .content-image {
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .content-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .content-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), transparent);
+            z-index: 1;
+        }
+
+        .content-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Trainer profile styles */
+        .trainer-profiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .trainer-profile {
+            background: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .trainer-profile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .trainer-image {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .trainer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .trainer-profile:hover .trainer-image img {
+            transform: scale(1.1);
+        }
+
+        .trainer-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .trainer-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+
+        .trainer-specialty {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .trainer-bio {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .trainer-certs {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Package styles */
+        .package-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .package-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .package-card.featured {
+            border: none;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .package-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            background: var(--primary-color);
+            color: #fff;
+            padding: 5px 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .package-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .package-sessions {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .package-price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .package-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #666;
+        }
+
+        .package-features {
+            list-style: none;
+            padding: 0;
+            margin: 25px 0;
+        }
+
+        .package-features li {
+            padding: 0;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .package-card .btn {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        /* Animation classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 992px) {
+            .package-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .two-column {
+                flex-direction: column;
+            }
+
+            .package-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="glass-nav">
+        <div class="nav-container">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>PowerFit</h1>
+                    <span class="tagline">FITNESS REDEFINED</span>
+                </div>
+            </div>
+            
+            <div class="nav-toggle" id="navToggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul class="nav-links" id="navLinks">
+                    <li class="nav-item"><a href="../../index.html#home" class="nav-link"><span>Home</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#about" class="nav-link"><span>About</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#services" class="nav-link"><span>Services</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#trainers" class="nav-link"><span>Trainers</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#pricing" class="nav-link"><span>Pricing</span></a></li>
+                    <li class="nav-item"><a href="../../index.html#contact" class="nav-link"><span>Contact</span></a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="../../index.html#pricing" class="btn btn-nav">Join Now</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">Personal Training</h1>
+            <p class="page-subtitle">Achieve your fitness goals faster with customized one-on-one coaching from our expert trainers</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="content-block fade-up">
+                <h2>Personalized Fitness Coaching</h2>
+                <div class="two-column">
+                    <div class="column fade-in-left">
+                        <p>At PowerFit Gym, our personal training service is the fastest, safest way to reach your fitness goals. Our certified personal trainers work one-on-one with you to create a customized fitness plan that addresses your specific needs, preferences, and objectives.</p>
+                        
+                        <p>Whether you're looking to lose weight, build muscle, improve athletic performance, or simply develop a healthier lifestyle, our trainers have the expertise to guide you every step of the way.</p>
+                        
+                        <p>Why choose personal training at PowerFit?</p>
+                        <ul>
+                            <li>Customized workout programs tailored to your goals</li>
+                            <li>Expert guidance on proper form and technique</li>
+                            <li>Accountability and motivation to stay consistent</li>
+                            <li>Efficient workouts that maximize results in minimal time</li>
+                            <li>Regular progress assessments and program adjustments</li>
+                            <li>Nutritional guidance to complement your training</li>
+                        </ul>
+                    </div>
+                    <div class="column content-image fade-in-right">
+                        <img src="../../images/personal-training-1.jpg" alt="Personal training at PowerFit Gym">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Meet Our Expert Trainers</h2>
+                <p>Our personal trainers are highly qualified professionals with extensive experience in various fitness disciplines. Each trainer brings their unique expertise and approach to help clients achieve remarkable results.</p>
+                
+                <div class="trainer-profiles">
+                    <div class="trainer-profile fade-up">
+                        <div class="trainer-image">
+                            <img src="../../images/trainer-mike.jpg" alt="Trainer Mike Johnson">
+                        </div>
+                        <div class="trainer-info">
+                            <h3 class="trainer-name">Mike Johnson</h3>
+                            <p class="trainer-specialty">Strength & Conditioning Specialist</p>
+                            <p class="trainer-bio">Mike specializes in strength training and athletic performance. His background in competitive sports informs his coaching approach, helping clients build functional strength and explosive power.</p>
+                            <p class="trainer-certs">CSCS, NASM-CPT, TRX Certified</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trainer-profile fade-up">
+                        <div class="trainer-image">
+                            <img src="../../images/trainer-sarah.jpg" alt="Trainer Sarah Adams">
+                        </div>
+                        <div class="trainer-info">
+                            <h3 class="trainer-name">Sarah Adams</h3>
+                            <p class="trainer-specialty">Weight Loss & Transformation Coach</p>
+                            <p class="trainer-bio">Sarah has helped hundreds of clients achieve dramatic weight loss results through her comprehensive approach that combines effective training with sustainable nutrition strategies.</p>
+                            <p class="trainer-certs">ACE-CPT, Precision Nutrition, Functional Movement Specialist</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trainer-profile fade-up">
+                        <div class="trainer-image">
+                            <img src="../../images/trainer-david.jpg" alt="Trainer David Chen">
+                        </div>
+                        <div class="trainer-info">
+                            <h3 class="trainer-name">David Chen</h3>
+                            <p class="trainer-specialty">Corrective Exercise Specialist</p>
+                            <p class="trainer-bio">David focuses on helping clients overcome injuries and movement limitations. His expertise in biomechanics helps clients move better, reduce pain, and prevent future injuries.</p>
+                            <p class="trainer-certs">NASM-CES, FMS Level 2, ACSM-CEP</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trainer-profile fade-up">
+                        <div class="trainer-image">
+                            <img src="../../images/trainer-lisa.jpg" alt="Trainer Lisa Rodriguez">
+                        </div>
+                        <div class="trainer-info">
+                            <h3 class="trainer-name">Lisa Rodriguez</h3>
+                            <p class="trainer-specialty">Holistic Fitness Coach</p>
+                            <p class="trainer-bio">Lisa takes a whole-person approach to fitness, integrating strength training, mobility work, and mindfulness practices to help clients achieve balanced physical and mental wellbeing.</p>
+                            <p class="trainer-certs">ACSM-CPT, RYT-200, Nutritional Therapy Practitioner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Our Training Approach</h2>
+                <div class="two-column">
+                    <div class="column content-image fade-in-left">
+                        <img src="../../images/personal-training-2.jpg" alt="PowerFit personal training approach">
+                    </div>
+                    <div class="column fade-in-right">
+                        <p>What sets our personal training service apart is our systematic, results-driven approach:</p>
+                        
+                        <ol>
+                            <li><strong>Initial Assessment</strong> - We begin with a comprehensive fitness assessment to understand your current level, identify any limitations, and establish baseline measurements.</li>
+                            <li><strong>Goal Setting</strong> - Together, we'll define clear, realistic fitness goals with specific timelines and measurable outcomes.</li>
+                            <li><strong>Custom Program Design</strong> - Your trainer will create a personalized training program that aligns with your goals, preferences, and lifestyle.</li>
+                            <li><strong>Expert Coaching</strong> - During each session, you'll receive hands-on coaching to ensure proper form, appropriate intensity, and optimal results.</li>
+                            <li><strong>Progress Tracking</strong> - We regularly monitor your progress through assessments and adjust your program as needed to ensure continuous improvement.</li>
+                            <li><strong>Nutritional Guidance</strong> - Receive practical nutrition advice that complements your training program and supports your goals.</li>
+                        </ol>
+                        
+                        <p>This structured approach ensures you make steady progress toward your fitness goals while minimizing the risk of injury or burnout. Our trainers are committed to your success and will provide the knowledge, support, and accountability you need to transform your fitness.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Personal Training Packages</h2>
+                <p>Choose the personal training package that best fits your goals and schedule:</p>
+                
+                <div class="package-cards">
+                    <div class="package-card fade-up">
+                        <h3 class="package-name">Starter</h3>
+                        <p class="package-sessions">4 sessions per month</p>
+                        <p class="package-price">$299 <span>/ month</span></p>
+                        <ul class="package-features">
+                            <li>1 session per week</li>
+                            <li>Initial fitness assessment</li>
+                            <li>Customized workout program</li>
+                            <li>Basic nutrition guidance</li>
+                            <li>Monthly progress check-in</li>
+                        </ul>
+                        <a href="../../index.html#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                    
+                    <div class="package-card featured fade-up">
+                        <h3 class="package-name">Committed</h3>
+                        <p class="package-sessions">8 sessions per month</p>
+                        <p class="package-price">$549 <span>/ month</span></p>
+                        <ul class="package-features">
+                            <li>2 sessions per week</li>
+                            <li>Comprehensive fitness assessment</li>
+                            <li>Customized workout program</li>
+                            <li>Detailed nutrition planning</li>
+                            <li>Bi-weekly progress assessments</li>
+                            <li>Access to trainer via messaging</li>
+                        </ul>
+                        <a href="../../index.html#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                    
+                    <div class="package-card fade-up">
+                        <h3 class="package-name">Transformation</h3>
+                        <p class="package-sessions">12 sessions per month</p>
+                        <p class="package-price">$799 <span>/ month</span></p>
+                        <ul class="package-features">
+                            <li>3 sessions per week</li>
+                            <li>Advanced fitness assessment</li>
+                            <li>Customized workout program</li>
+                            <li>Comprehensive nutrition plan</li>
+                            <li>Weekly progress assessments</li>
+                            <li>Unlimited trainer support</li>
+                            <li>Monthly InBody composition scan</li>
+                        </ul>
+                        <a href="../../index.html#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+                
+                <p class="fade-up" style="text-align: center; margin-top: 30px;">Looking for something more specialized? We also offer <a href="../../index.html#contact" class="text-link">custom packages</a> including couples training, small group sessions, and sport-specific coaching.</p>
+            </div>
+            
+            <div class="content-block fade-up">
+                <h2>Success Stories</h2>
+                <div class="two-column">
+                    <div class="column fade-in-left">
+                        <p>"Working with Sarah at PowerFit completely changed my approach to fitness. In six months, I lost 45 pounds and gained strength I never thought possible. The personalized program and constant support made all the difference."</p>
+                        <p><strong>- Michael T., lost 45 lbs in 6 months</strong></p>
+                        
+                        <p>"After years of on-and-off gym memberships with little results, David's coaching helped me finally break through my plateaus. His knowledge of proper form and progressive programming has taken my strength to new levels."</p>
+                        <p><strong>- Jennifer K., increased deadlift by 100 lbs</strong></p>
+                        
+                        <p>"Lisa's holistic approach was exactly what I needed. She helped me balance my intense work schedule with effective workouts and stress management techniques. I'm now in the best shape of my life at 45."</p>
+                        <p><strong>- Robert M., executive who reclaimed his health</strong></p>
+                        
+                        <p>Ready to write your own success story? <a href="../../index.html#contact" class="text-link">Contact us</a> today to schedule a free consultation with one of our expert personal trainers.</p>
+                    </div>
+                    <div class="column content-image fade-in-right">
+                        <img src="../../images/personal-training-3.jpg" alt="PowerFit personal training success stories">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>PowerFit</h2>
+                    <p>At PowerFit, we're committed to helping you achieve your fitness goals through personalized training, state-of-the-art equipment, and a supportive community.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="../../index.html#home">Home</a></li>
+                            <li><a href="../../index.html#about">About Us</a></li>
+                            <li><a href="../../index.html#services">Services</a></li>
+                            <li><a href="../../index.html#trainers">Our Team</a></li>
+                            <li><a href="../../index.html#pricing">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Our Services</h3>
+                        <ul>
+                            <li><a href="./strength-training.html">Strength Training</a></li>
+                            <li><a href="./cardio-classes.html">Cardio Classes</a></li>
+                            <li><a href="./yoga-pilates.html">Yoga & Pilates</a></li>
+                            <li><a href="./personal-training.html">Personal Training</a></li>
+                            <li><a href="./nutrition-counseling.html">Nutrition Counseling</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="../support/faq.html">FAQ</a></li>
+                            <li><a href="../support/terms.html">Terms of Service</a></li>
+                            <li><a href="../support/privacy.html">Privacy Policy</a></li>
+                            <li><a href="../../index.html#contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 PowerFit Gym. All Rights Reserved.</p>
+                <div class="footer-legal">
+                    <a href="../support/terms.html">Terms of Service</a>
+                    <a href="../support/privacy.html">Privacy Policy</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../script.js"></script>
+    <script>
+        // Additional page-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all animated elements
+            document.querySelectorAll('.fade-up, .fade-in-left, .fade-in-right').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
